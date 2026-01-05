@@ -373,3 +373,21 @@ document.addEventListener('submit', async (e) => {
 document.addEventListener('keypress', function(e) {
     if (e.target.matches('input[type="text"], input[type="email"], select') && e.key === 'Enter') e.preventDefault();
 });
+
+// Update 'Since 2018' badge dynamically and add a subtle shimmer
+(function updateSinceBadge(){
+    const since = 2018;
+    const now = new Date().getFullYear();
+    const years = Math.max(0, now - since);
+    const yearEl = document.getElementById('since-year');
+    const countEl = document.getElementById('since-years-count');
+    if (yearEl) yearEl.textContent = since;
+    if (countEl) countEl.textContent = years;
+
+    const badge = document.querySelector('.hero-badge');
+    if (badge) {
+        badge.classList.add('shimmer');
+        // remove shimmer after a while to keep it subtle
+        setTimeout(() => badge.classList.remove('shimmer'), 7000);
+    }
+})();

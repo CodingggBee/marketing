@@ -5,21 +5,21 @@
 }
 
 :root {
-    --primary-color: #0f172a;
-    --secondary-color: #0a0f1b;
-    --tertiary-color: #1e293b;
-    --accent-color: #0066cc;
-    --accent-light: #0080ff;
-    --success-color: #059669;
-    --text-dark: #0f172a;
-    --text-primary: #1e293b;
+    --primary-color: #071028; /* deep navy */
+    --secondary-color: #0a0f14; /* charcoal */
+    --tertiary-color: #17202a;
+    --accent-color: #0077ff; /* electric blue */
+    --accent-light: #3399ff;
+    --success-color: #00b37e; /* signal green for success */
+    --text-dark: #071028;
+    --text-primary: #0f172a;
     --text-secondary: #475569;
     --text-muted: #64748b;
     --bg-white: #ffffff;
-    --bg-light: #f8fafc;
+    --bg-light: #f7f9fb;
     --bg-lighter: #f1f5f9;
-    --border-color: #cbd5e1;
-    --border-light: #e2e8f0;
+    --border-color: #d1d9e6;
+    --border-light: #e6eef9;
 }
 
 html {
@@ -194,16 +194,49 @@ body {
 }
 
 .hero-badge {
-    display: inline-block;
-    background: rgba(0, 212, 255, 0.15);
-    color: var(--accent-color);
-    padding: 10px 20px;
-    border-radius: 30px;
-    font-size: 14px;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(0, 179, 126, 0.08);
+    color: var(--success-color);
+    padding: 12px 22px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 700;
     margin-bottom: 2rem;
-    border: 1px solid rgba(0, 212, 255, 0.3);
-    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 179, 126, 0.16);
+    backdrop-filter: blur(8px);
+    box-shadow: 0 6px 20px rgba(2,6,23,0.25);
+    transform: translateZ(0);
+}
+
+.hero-badge .badge-emoji {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0,179,126,0.12), rgba(0,179,126,0.06));
+    font-size: 18px;
+}
+
+.hero-badge .badge-text { color: white; font-weight: 700; }
+.hero-badge .badge-text strong { color: rgba(255,255,255,0.95); font-weight:800; }
+.hero-badge .badge-years { color: rgba(255,255,255,0.82); font-weight:600; margin-left:6px; font-size:13px; }
+
+/* subtle shine */
+.hero-badge::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+}
+
+.hero-badge.shimmer { animation: badgePulse 6s infinite; }
+
+@keyframes badgePulse {
+    0%,100% { box-shadow: 0 6px 20px rgba(2,6,23,0.22); }
+    50% { box-shadow: 0 10px 30px rgba(0,102,204,0.14); transform: translateY(-2px); }
 }
 
 .hero-content h1 {
