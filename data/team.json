@@ -1,0 +1,6 @@
+[
+  {"id":"sarah","name":"Sarah Johnson","role":"Creative Director","bio":"10+ years of experience in digital design and brand strategy.","avatar":"👩‍💼"},
+  {"id":"michael","name":"Michael Chen","role":"Senior Developer","bio":"Full-stack developer specializing in scalable web applications.","avatar":"👨‍💻"},
+  {"id":"emma","name":"Emma Rodriguez","role":"Marketing Strategist","bio":"Data-driven marketer with proven track record in growth hacking.","avatar":"👩‍🔬"},
+  {"id":"david","name":"David Park","role":"UX/UI Designer","bio":"User-centered design specialist creating seamless digital experiences.","avatar":"👨‍🎨"}
+]

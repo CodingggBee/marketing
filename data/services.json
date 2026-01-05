@@ -1,0 +1,38 @@
+[
+  {
+    "id": "digital-strategy",
+    "title": "Digital Strategy",
+    "description": "Comprehensive marketing strategies aligned to business goals.",
+    "icon": "📊"
+  },
+  {
+    "id": "brand-design",
+    "title": "Brand Design",
+    "description": "Visual identities and brand systems that communicate value.",
+    "icon": "🎨"
+  },
+  {
+    "id": "social-media",
+    "title": "Social Media",
+    "description": "Community building and high-impact social campaigns.",
+    "icon": "📱"
+  },
+  {
+    "id": "web-development",
+    "title": "Web Development",
+    "description": "Responsive, conversion-focused websites and apps.",
+    "icon": "💻"
+  },
+  {
+    "id": "seo-content",
+    "title": "SEO & Content",
+    "description": "Search-first content strategies that drive organic growth.",
+    "icon": "📈"
+  },
+  {
+    "id": "email-campaigns",
+    "title": "Email Campaigns",
+    "description": "Personalized email flows that convert and retain customers.",
+    "icon": "📧"
+  }
+]

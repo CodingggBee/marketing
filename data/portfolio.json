@@ -1,0 +1,23 @@
+[
+  {
+    "id": "ecommerce",
+    "title": "E-Commerce Platform",
+    "description": "Complete brand overhaul and digital transformation for a retail company.",
+    "tag": "Web Design",
+    "imageGradient": "linear-gradient(135deg, #0f172a 0%, #0066cc 100%)"
+  },
+  {
+    "id": "saas-campaign",
+    "title": "SaaS Marketing Campaign",
+    "description": "Strategic campaign that increased leads by 150% in six months.",
+    "tag": "Marketing",
+    "imageGradient": "linear-gradient(135deg, #0a0f1b 0%, #0080ff 100%)"
+  },
+  {
+    "id": "startup-brand",
+    "title": "Startup Branding",
+    "description": "Full brand identity development for a fintech startup.",
+    "tag": "Branding",
+    "imageGradient": "linear-gradient(135deg, #1e293b 0%, #0066cc 100%)"
+  }
+]

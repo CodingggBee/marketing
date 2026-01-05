@@ -223,3 +223,153 @@ document.addEventListener('keypress', function(e) {
         }
     }
 });
+
+
+// --- Fetch & render dynamic content from API ---
+async function fetchJSON(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Network error');
+    return res.json();
+}
+
+function renderServices(items) {
+    const container = document.querySelector('.services-grid');
+    if (!container) return;
+    container.innerHTML = items.map(s => `
+        <div class="service-card">
+            <div class="service-icon-box">${s.icon || '🔹'}</div>
+            <h3>${s.title}</h3>
+            <p>${s.description}</p>
+            <a href="#" class="service-link">Learn More →</a>
+        </div>
+    `).join('');
+}
+
+function renderPortfolio(items) {
+    const container = document.querySelector('.portfolio-grid');
+    if (!container) return;
+    container.innerHTML = items.map(p => `
+        <div class="portfolio-item">
+            <div class="portfolio-image" style="background: ${p.imageGradient || 'linear-gradient(135deg,#0f172a,#0066cc)'}"></div>
+            <div class="portfolio-info">
+                <h3>${p.title}</h3>
+                <p>${p.description}</p>
+                <span class="portfolio-tag">${p.tag}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderTeam(items) {
+    const container = document.querySelector('.team-grid');
+    if (!container) return;
+    container.innerHTML = items.map(m => `
+        <div class="team-member">
+            <div class="member-avatar">${m.avatar || '👤'}</div>
+            <h3>${m.name}</h3>
+            <p class="member-role">${m.role}</p>
+            <p class="member-bio">${m.bio}</p>
+        </div>
+    `).join('');
+}
+
+function renderTestimonials(items) {
+    const container = document.querySelector('.testimonials-grid');
+    if (!container) return;
+    container.innerHTML = items.map(t => `
+        <div class="testimonial-card">
+            <div class="stars">${'★'.repeat(t.stars || 5)}</div>
+            <p class="testimonial-text">"${t.text}"</p>
+            <div class="testimonial-author"><p class="author-name">${t.author}</p><p class="author-title">${t.title}</p></div>
+        </div>
+    `).join('');
+}
+
+function renderStats(items) {
+    const container = document.querySelector('.stats-grid');
+    if (!container) return;
+    container.innerHTML = items.map(s => `
+        <div class="stats-card">
+            <div class="stats-number">${s.value}</div>
+            <div class="stats-label">${s.label}</div>
+        </div>
+    `).join('');
+}
+
+async function loadAll() {
+    try {
+        const [services, portfolio, team, testimonials, stats] = await Promise.all([
+            fetchJSON('/api/services'),
+            fetchJSON('/api/portfolio'),
+            fetchJSON('/api/team'),
+            fetchJSON('/api/testimonials'),
+            fetchJSON('/api/stats')
+        ]);
+
+        renderServices(services);
+        renderPortfolio(portfolio);
+        renderTeam(team);
+        renderTestimonials(testimonials);
+        renderStats(stats);
+
+        // re-observe newly-added elements
+        document.querySelectorAll('.service-card, .portfolio-item, .team-member, .testimonial-card, .stats-card, .process-step, .faq-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            observer.observe(el);
+        });
+    } catch (err) {
+        console.error('Failed to load content', err);
+    }
+}
+
+loadAll();
+
+// FAQ Accordion (delegated)
+document.addEventListener('click', (e) => {
+    if (e.target.matches('.faq-header') || e.target.closest('.faq-header')) {
+        const header = e.target.closest('.faq-header');
+        const item = header.parentElement;
+        document.querySelectorAll('.faq-item').forEach(i => { if (i !== item) i.classList.remove('active'); });
+        item.classList.toggle('active');
+    }
+});
+
+// Contact form POST to API
+document.addEventListener('submit', async (e) => {
+    if (!e.target.matches('.contact-form')) return;
+    e.preventDefault();
+    const form = e.target;
+    const name = form.querySelector('input[placeholder="Your Name"]').value.trim();
+    const email = form.querySelector('input[placeholder="Your Email"]').value.trim();
+    const company = form.querySelector('input[placeholder="Company Name"]').value.trim();
+    const service = form.querySelector('select')?.value || '';
+    const message = form.querySelector('textarea')?.value.trim();
+
+    if (!name || !email || !message) {
+        alert('Please fill required fields');
+        return;
+    }
+
+    try {
+        const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, company, service, message })
+        });
+        const body = await res.json();
+        if (!res.ok) throw body;
+        const btn = form.querySelector('.submit-button');
+        const orig = btn.textContent;
+        btn.textContent = 'Sent ✓';
+        setTimeout(() => { btn.textContent = orig; form.reset(); alert('Message sent — we will contact you soon.'); }, 900);
+    } catch (err) {
+        console.error(err);
+        alert('Failed to send message. Try again later.');
+    }
+});
+
+// Prevent accidental enter submit
+document.addEventListener('keypress', function(e) {
+    if (e.target.matches('input[type="text"], input[type="email"], select') && e.key === 'Enter') e.preventDefault();
+});
